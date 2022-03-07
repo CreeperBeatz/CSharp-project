@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "602d91d3-e54f-4a82-950b-9cb853a006fe": {
+      "ProjectGuid": "602d91d3-e54f-4a82-950b-9cb853a006fe",
+      "DisplayName": "UserLogin",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

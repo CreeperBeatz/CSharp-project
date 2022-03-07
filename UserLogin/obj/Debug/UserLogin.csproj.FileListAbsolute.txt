@@ -1,0 +1,8 @@
+C:\Users\danim\source\repos\PS-project\UserLogin\bin\Debug\UserLogin.exe.config
+C:\Users\danim\source\repos\PS-project\UserLogin\bin\Debug\UserLogin.exe
+C:\Users\danim\source\repos\PS-project\UserLogin\bin\Debug\UserLogin.pdb
+C:\Users\danim\source\repos\PS-project\UserLogin\obj\Debug\UserLogin.csproj.AssemblyReference.cache
+C:\Users\danim\source\repos\PS-project\UserLogin\obj\Debug\UserLogin.csproj.SuggestedBindingRedirects.cache
+C:\Users\danim\source\repos\PS-project\UserLogin\obj\Debug\UserLogin.csproj.CoreCompileInputs.cache
+C:\Users\danim\source\repos\PS-project\UserLogin\obj\Debug\UserLogin.exe
+C:\Users\danim\source\repos\PS-project\UserLogin\obj\Debug\UserLogin.pdb
