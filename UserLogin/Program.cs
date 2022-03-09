@@ -13,6 +13,8 @@ namespace UserLogin
         {
             string username;
             string password;
+            Logger.CreateFileIfNotExists();
+            Logger.RemoveBeforeDate(DateTime.Today.AddDays(-1));
 
             Console.WriteLine("Please enter an Username: ");
             username = Console.ReadLine();
@@ -31,7 +33,6 @@ namespace UserLogin
                 {
                     case UserRoles.ADMIN:
                         while (true) { AdminFlow(); }
-                        break;
                     default:
                         break;
                 }
@@ -39,9 +40,9 @@ namespace UserLogin
             }
         }
 
-        public static void Log(string error)
+        public static void Log(string line)
         {
-            Console.WriteLine(error);
+            Console.WriteLine(line);
         }
 
         public static void DisplayUserRole(UserRoles role)
@@ -115,7 +116,7 @@ namespace UserLogin
                     case 4:
                         break;
                     case 5:
-                        PrintLog();
+                        PrintLogFile();
                         break;
                     case 6:
                         PrintCurrentLog();
@@ -143,6 +144,32 @@ namespace UserLogin
                 Console.WriteLine(line);
             }
         }
+
+        public static void PrintLogFile()
+        {
+            try
+            {
+                // Create an instance of StreamReader to read from a file.
+                // The using statement also closes the StreamReader.
+                using (StreamReader sr = new StreamReader(Logger.log_path))
+                {
+                    string line;
+                    // Read and display lines from the file until the end of
+                    // the file is reached.
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
+
 
         ///<summary>
         ///Uses Console to get use input
@@ -183,33 +210,5 @@ namespace UserLogin
 
             return (UserRoles)user_choise;
         }
-
-        public static void PrintLog()
-        {
-            //Declare StringBuilder because of the exercise
-            StringBuilder _ = new StringBuilder();
-            try
-            {
-                // Create an instance of StreamReader to read from a file.
-                // The using statement also closes the StreamReader.
-                using (StreamReader sr = new StreamReader("log.txt"))
-                {
-                    string line;
-                    // Read and display lines from the file until the end of
-                    // the file is reached.
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        Console.WriteLine(line);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                // Let the user know what went wrong.
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
-        }
-
     }
 }
