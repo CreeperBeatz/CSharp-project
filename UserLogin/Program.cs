@@ -13,8 +13,17 @@ namespace UserLogin
         {
             string username;
             string password;
-            Logger.CreateFileIfNotExists();
-            Logger.RemoveBeforeDate(DateTime.Today.AddDays(-1));
+            try
+            {
+                Logger.CreateFileIfNotExists();
+                Logger.RemoveBeforeDate(DateTime.Today.AddDays(-1));
+            }
+            catch (Exception e)
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
 
             Console.WriteLine("Please enter an Username: ");
             username = Console.ReadLine();
@@ -37,36 +46,6 @@ namespace UserLogin
                         break;
                 }
 
-            }
-        }
-
-        public static void Log(string line)
-        {
-            Console.WriteLine(line);
-        }
-
-        public static void DisplayUserRole(UserRoles role)
-        {
-            switch (LoginValidation.currentUserRole)
-            {
-                case UserRoles.STUDENT:
-                    Console.WriteLine("Student role");
-                    break;
-                case UserRoles.ADMIN:
-                    Console.WriteLine("Administrator role");
-                    break;
-                case UserRoles.PROFESSOR:
-                    Console.WriteLine("Proffesor role");
-                    break;
-                case UserRoles.INSPECTOR:
-                    Console.WriteLine("Inspector role");
-                    break;
-                case UserRoles.ANONYMOUS:
-                    Console.WriteLine("Anonymous role");
-                    break;
-                default:
-                    Console.WriteLine("Error");
-                    break;
             }
         }
 
@@ -132,14 +111,9 @@ namespace UserLogin
             }
         }
 
-        private static void Exit(int v)
-        {
-            throw new NotImplementedException();
-        }
-
         public static void PrintCurrentLog()
         {
-            foreach (string line in Logger.currentSessionActivities)
+            foreach (string line in Logger.GetCurrentSessionActivities(""))
             {
                 Console.WriteLine(line);
             }
@@ -147,26 +121,9 @@ namespace UserLogin
 
         public static void PrintLogFile()
         {
-            try
+            foreach(string line in Logger.GetLogFileActivities())
             {
-                // Create an instance of StreamReader to read from a file.
-                // The using statement also closes the StreamReader.
-                using (StreamReader sr = new StreamReader(Logger.log_path))
-                {
-                    string line;
-                    // Read and display lines from the file until the end of
-                    // the file is reached.
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        Console.WriteLine(line);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                // Let the user know what went wrong.
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                Console.WriteLine(line);
             }
         }
 
@@ -209,6 +166,40 @@ namespace UserLogin
             int user_choise = Int32.Parse(Console.ReadLine());
 
             return (UserRoles)user_choise;
+        }
+        public static void Log(string line)
+        {
+            Console.WriteLine(line);
+        }
+
+        public static void DisplayUserRole(UserRoles role)
+        {
+            switch (LoginValidation.currentUserRole)
+            {
+                case UserRoles.STUDENT:
+                    Console.WriteLine("Student role");
+                    break;
+                case UserRoles.ADMIN:
+                    Console.WriteLine("Administrator role");
+                    break;
+                case UserRoles.PROFESSOR:
+                    Console.WriteLine("Proffesor role");
+                    break;
+                case UserRoles.INSPECTOR:
+                    Console.WriteLine("Inspector role");
+                    break;
+                case UserRoles.ANONYMOUS:
+                    Console.WriteLine("Anonymous role");
+                    break;
+                default:
+                    Console.WriteLine("Error");
+                    break;
+            }
+        }
+
+        private static void Exit(int v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
